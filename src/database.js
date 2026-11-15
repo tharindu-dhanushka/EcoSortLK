@@ -1,8 +1,14 @@
 import { WASTE_ITEMS, QUIZ_QUESTIONS } from './data';
+import { ECO_TIPS } from './ecoTips';
 
 export async function initializeDatabase(db) {
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
+    CREATE TABLE IF NOT EXISTS eco_tips (
+      id INTEGER PRIMARY KEY NOT NULL,
+      title TEXT NOT NULL,
+      body TEXT NOT NULL
+    );
     CREATE TABLE IF NOT EXISTS waste_items (
       id INTEGER PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
@@ -26,6 +32,13 @@ export async function initializeDatabase(db) {
 
   // INSERT OR IGNORE protects user favourites if the app restarts.
   await db.withTransactionAsync(async () => {
+    for (const tip of ECO_TIPS) {
+      await db.runAsync(
+        `INSERT INTO eco_tips (id, title, body) VALUES (?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET title = excluded.title, body = excluded.body`,
+        tip.id, tip.title, tip.body
+      );
+    }
     for (const item of WASTE_ITEMS) {
       await db.runAsync(
         `INSERT OR IGNORE INTO waste_items

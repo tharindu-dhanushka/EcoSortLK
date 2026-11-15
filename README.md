@@ -13,6 +13,7 @@ The application stores its learning content in a **local SQLite database**. User
 
 ## Features
 
+- **Eco Tips** – Eight practical tips loaded from local SQLite, with loading, retry and empty states.
 - **Home dashboard** – Overview of the guide and quick access to the main sections.
 - **Waste categories** – Explore Plastic, Paper, Glass, Metal, Organic, E-Waste, Hazardous and Textiles.
 - **Waste Explorer** – Search waste materials by name or disposal guidance, filter by category, and optionally show favorites only.
@@ -34,6 +35,23 @@ The application stores its learning content in a **local SQLite database**. User
 | 6 | Eco Quiz | Answer quiz questions |
 | 7 | Quiz Results | View results and restart the quiz |
 | 8 | About | Read the app's purpose and limitations |
+| 9 | Eco Tips | Read practical waste-reduction tips offline |
+
+## Eco Tips validation
+
+Run `node --test tests/*.test.cjs` with Node.js 26 or newer. These tests use the
+actual initializer and query with a desktop SQLite adapter. They cover fresh
+seeding, upgrading an existing database, repeat initialization, updated tip text,
+favorite preservation, disk reopen, empty results and query failures. GitHub
+Actions runs the same checks for feature branches and pull requests into main.
+These checks do not replace testing Expo SQLite on Android.
+
+On an installed Android build, open Home → Eco Tips, read all eight tips, return
+with the system Back button, and repeat after force-stopping in Airplane Mode.
+Upgrade an existing installation without clearing storage and verify that tips
+appear and saved favorites remain. Also check large text, TalkBack and bottom
+gesture-area spacing. Database error/retry and empty-state UI require a test
+environment that can inject those conditions.
 
 ## Technologies used
 
