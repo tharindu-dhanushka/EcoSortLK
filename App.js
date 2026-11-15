@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SQLiteProvider, useSQLiteContext } from 'expo-sqlite';
 import { CATEGORIES } from './src/data';
 import { initializeDatabase } from './src/database';
+import EcoTipsScreen from './src/screens/EcoTipsScreen';
 
 const Stack = createNativeStackNavigator();
 const GREEN = '#16734a';
@@ -57,6 +58,7 @@ function HomeScreen({ navigation }) {
     <Button label="Explore Waste Materials" onPress={() => navigation.navigate('Waste Explorer')} />
     <Button label="Browse Categories" secondary onPress={() => navigation.navigate('Categories')} />
     <Button label="Reuse Ideas" secondary onPress={() => navigation.navigate('Reuse Ideas')} />
+    <Button label="Eco Tips" secondary onPress={() => navigation.navigate('Eco Tips')} />
     <Button label="Take an Eco Quiz" secondary onPress={() => navigation.navigate('Eco Quiz')} />
     <Button label="About EcoSort LK" secondary onPress={() => navigation.navigate('About')} />
     <Text style={styles.note}>Recycling services differ by location. Always confirm your local collector's requirements.</Text>
@@ -231,6 +233,7 @@ function AppNavigation() {
       <Stack.Screen name="Waste Explorer" component={ExplorerScreen} />
       <Stack.Screen name="Waste Details" component={DetailsScreen} />
       <Stack.Screen name="Reuse Ideas" component={ReuseScreen} />
+      <Stack.Screen name="Eco Tips" component={EcoTipsScreen} />
       <Stack.Screen name="Eco Quiz" component={QuizScreen} />
       <Stack.Screen name="Quiz Results" component={QuizResultsScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
